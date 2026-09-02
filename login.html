@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Playground — Login Flow</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="ticket-header">
+    <div class="ticket-header__top">
+      <h1 class="ticket-header__brand">QA <span>Playground</span></h1>
+      <div class="ticket-header__id">TICKET&nbsp;#QA-010<br>SECTION: LOGIN FLOW</div>
+    </div>
+    <p class="ticket-header__tagline">
+      A self-contained login page for practicing multi-step flows: valid login, invalid login,
+      and a logged-in state. No server involved — credentials are checked in the browser.
+    </p>
+    <nav class="testnav">
+      <a href="index.html">← Back to playground</a>
+    </nav>
+  </header>
+
+  <section class="section" id="login-section">
+    <div class="section__head">
+      <span class="section__num">10</span>
+      <h2 class="section__title">Sign in</h2>
+    </div>
+    <div class="section__body">
+      <p class="section__note">
+        Valid credentials: username <code>tester</code>, password <code>pass123</code>.
+        Anything else fails.
+      </p>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" data-testid="input-username" autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" data-testid="input-password" autocomplete="current-password">
+        </div>
+        <button type="submit" id="login-submit" data-testid="btn-login">Log in</button>
+      </form>
+
+      <div class="alertbox" id="login-error" data-testid="login-error"></div>
+    </div>
+  </section>
+
+  <section class="section hidden" id="secure-area" data-testid="secure-area">
+    <div class="section__head">
+      <span class="section__num">✓</span>
+      <h2 class="section__title">Secure Area</h2>
+    </div>
+    <div class="section__body">
+      <p>
+        <span class="stamp stamp--pass">LOGGED IN</span>
+        &nbsp; Welcome, <strong id="welcome-name" data-testid="welcome-name"></strong>.
+        This page is only reachable after a successful login.
+      </p>
+      <button class="secondary" id="logout-btn" data-testid="btn-logout">Log out</button>
+    </div>
+  </section>
+</div>
+
+<footer>QA Playground — a static demo site for testing practice. No data leaves your browser.</footer>
+
+<script>
+  const loginForm = document.getElementById('login-form');
+  const loginError = document.getElementById('login-error');
+  const loginSection = document.getElementById('login-section');
+  const secureArea = document.getElementById('secure-area');
+  const welcomeName = document.getElementById('welcome-name');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value;
+
+    if (user === 'tester' && pass === 'pass123') {
+      loginError.classList.remove('show', 'fail');
+      loginSection.classList.add('hidden');
+      secureArea.classList.remove('hidden');
+      welcomeName.textContent = user;
+    } else {
+      loginError.textContent = 'Invalid username or password.';
+      loginError.classList.remove('pass');
+      loginError.classList.add('show', 'fail');
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    secureArea.classList.add('hidden');
+    loginSection.classList.remove('hidden');
+    loginForm.reset();
+    loginError.classList.remove('show');
+  });
+</script>
+</body>
+</html>

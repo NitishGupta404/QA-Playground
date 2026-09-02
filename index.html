@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Playground — Automation Practice Site</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="ticket-header">
+    <div class="ticket-header__top">
+      <h1 class="ticket-header__brand">QA <span>Playground</span></h1>
+      <div class="ticket-header__id">TICKET&nbsp;#QA-001<br>STATUS: <span class="stamp stamp--pending" style="transform:none;padding:1px 6px;font-size:0.7rem;">OPEN</span></div>
+    </div>
+    <p class="ticket-header__tagline">
+      A small static site for practicing browser automation — <strong>Selenium, Playwright, Cypress</strong>,
+      or manual exploratory testing. Every control below has a stable <code>id</code> or
+      <code>data-testid</code> to select against. Nothing here calls a real server.
+    </p>
+    <nav class="testnav">
+      <a href="#forms">01 Forms</a>
+      <a href="#choices">02 Checkboxes &amp; Radios</a>
+      <a href="#alerts">03 Alerts</a>
+      <a href="#modal">04 Modal</a>
+      <a href="#table">05 Sortable Table</a>
+      <a href="#dnd">06 Drag &amp; Drop</a>
+      <a href="#tooltip">07 Tooltip</a>
+      <a href="#broken">08 Broken Elements</a>
+      <a href="#frame">09 iFrame</a>
+      <a href="login.html">10 Login flow →</a>
+      <a href="dynamic.html">11 Dynamic content →</a>
+    </nav>
+  </header>
+
+  <!-- 01 FORMS -->
+  <section class="section" id="forms">
+    <div class="section__head">
+      <span class="section__num">01</span>
+      <h2 class="section__title">Forms &amp; Inputs</h2>
+    </div>
+    <div class="section__body">
+      <p class="section__note">Submitting shows a pass/fail message without leaving the page — good for asserting on form validation.</p>
+      <form id="demo-form" novalidate>
+        <div class="field">
+          <label for="full-name">Full name</label>
+          <input type="text" id="full-name" data-testid="input-fullname" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" data-testid="input-email" required>
+        </div>
+        <div class="field">
+          <label for="role">Role</label>
+          <select id="role" data-testid="select-role">
+            <option value="">Select one…</option>
+            <option value="qa">QA Engineer</option>
+            <option value="dev">Developer</option>
+            <option value="pm">Product Manager</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="notes">Notes</label>
+          <textarea id="notes" data-testid="textarea-notes" placeholder="Optional"></textarea>
+        </div>
+        <button type="submit" id="submit-form" data-testid="btn-submit-form">Submit</button>
+        <div class="alertbox" id="form-result" data-testid="form-result"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- 02 CHECKBOXES / RADIOS -->
+  <section class="section" id="choices">
+    <div class="section__head">
+      <span class="section__num">02</span>
+      <h2 class="section__title">Checkboxes &amp; Radio Buttons</h2>
+    </div>
+    <div class="section__body grid-2">
+      <div>
+        <p class="section__note">Checkbox group (multi-select)</p>
+        <div class="checkrow"><input type="checkbox" id="chk-1" data-testid="chk-selenium"><label for="chk-1">Selenium</label></div>
+        <div class="checkrow"><input type="checkbox" id="chk-2" data-testid="chk-playwright" checked><label for="chk-2">Playwright</label></div>
+        <div class="checkrow"><input type="checkbox" id="chk-3" data-testid="chk-cypress"><label for="chk-3">Cypress</label></div>
+        <div class="checkrow"><input type="checkbox" id="chk-disabled" data-testid="chk-disabled" disabled><label for="chk-disabled">Disabled option</label></div>
+      </div>
+      <div>
+        <p class="section__note">Radio group (single-select)</p>
+        <div class="radiorow"><input type="radio" name="env" id="rad-1" data-testid="radio-staging"><label for="rad-1">Staging</label></div>
+        <div class="radiorow"><input type="radio" name="env" id="rad-2" data-testid="radio-prod" checked><label for="rad-2">Production</label></div>
+        <div class="radiorow"><input type="radio" name="env" id="rad-3" data-testid="radio-local"><label for="rad-3">Local</label></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 ALERTS -->
+  <section class="section" id="alerts">
+    <div class="section__head">
+      <span class="section__num">03</span>
+      <h2 class="section__title">Alerts &amp; Confirms</h2>
+    </div>
+    <div class="section__body">
+      <p class="section__note">Uses native <code>window.confirm</code> / <code>window.alert</code> — useful for testing browser dialog handling.</p>
+      <button id="btn-alert" data-testid="btn-native-alert" class="secondary">Trigger alert()</button>
+      <button id="btn-confirm" data-testid="btn-native-confirm" class="secondary">Trigger confirm()</button>
+      <div class="alertbox" id="confirm-result" data-testid="confirm-result"></div>
+    </div>
+  </section>
+
+  <!-- 04 MODAL -->
+  <section class="section" id="modal">
+    <div class="section__head">
+      <span class="section__num">04</span>
+      <h2 class="section__title">Modal Dialog</h2>
+    </div>
+    <div class="section__body">
+      <p class="section__note">In-page modal, not a native dialog — good for testing overlay/backdrop click and focus trapping.</p>
+      <button id="open-modal" data-testid="btn-open-modal">Delete item…</button>
+    </div>
+  </section>
+
+  <!-- 05 TABLE -->
+  <section class="section" id="table">
+    <div class="section__head">
+      <span class="section__num">05</span>
+      <h2 class="section__title">Sortable Table</h2>
+    </div>
+    <div class="section__body">
+      <p class="section__note">Click a column header to sort. Rows carry <code>data-row-id</code>.</p>
+      <table id="results-table" data-testid="results-table">
+        <thead>
+          <tr>
+            <th data-sort="name" data-testid="th-name">Test case <span class="arrow"></span></th>
+            <th data-sort="status" data-testid="th-status">Status <span class="arrow"></span></th>
+            <th data-sort="duration" data-testid="th-duration">Duration (ms) <span class="arrow"></span></th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr data-row-id="1"><td>Login — valid credentials</td><td><span class="stamp stamp--pass">PASS</span></td><td>412</td></tr>
+          <tr data-row-id="2"><td>Login — invalid password</td><td><span class="stamp stamp--pass">PASS</span></td><td>388</td></tr>
+          <tr data-row-id="3"><td>Checkout — empty cart</td><td><span class="stamp stamp--fail">FAIL</span></td><td>901</td></tr>
+          <tr data-row-id="4"><td>Search — special characters</td><td><span class="stamp stamp--pending">PENDING</span></td><td>—</td></tr>
+          <tr data-row-id="5"><td>Profile — avatar upload</td><td><span class="stamp stamp--pass">PASS</span></td><td>1120</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 06 DRAG AND DROP -->
+  <section class="section" id="dnd">
+    <div class="section__head">
+      <span class="section__num">06</span>
+      <h2 class="section__title">Drag &amp; Drop</h2>
+    </div>
+    <div class="section__body">
+      <p class="section__note">Drag the tickets from the backlog into "In Progress."</p>
+      <div class="dnd-row">
+        <div class="dnd-zone" id="zone-backlog" data-testid="zone-backlog">
+          BACKLOG
+          <div class="drag-item" draggable="true" id="drag-1" data-testid="drag-item-1">TICKET-101</div>
+          <div class="drag-item" draggable="true" id="drag-2" data-testid="drag-item-2">TICKET-102</div>
+        </div>
+        <div class="dnd-zone" id="zone-progress" data-testid="zone-in-progress">IN PROGRESS</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 TOOLTIP -->
+  <section class="section" id="tooltip">
+    <div class="section__head">
+      <span class="section__num">07</span>
+      <h2 class="section__title">Tooltip / Hover State</h2>
+    </div>
+    <div class="section__body">
+      <span class="tooltip-wrap" tabindex="0" data-testid="tooltip-trigger">
+        <button class="secondary">Hover or focus me</button>
+        <span class="tooltip-bubble" data-testid="tooltip-bubble">Only visible on hover/focus</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- 08 BROKEN ELEMENTS -->
+  <section class="section" id="broken">
+    <div class="section__head">
+      <span class="section__num">08</span>
+      <h2 class="section__title">Broken Elements</h2>
+    </div>
+    <div class="section__body">
+      <p class="section__note">Intentionally broken, for testing error handling and negative assertions.</p>
+      <p>
+        Broken image:
+        <img src="does-not-exist.png" alt="intentionally broken image" width="60" height="60" data-testid="broken-image" style="vertical-align:middle;border:1px solid var(--fail);">
+      </p>
+      <p>
+        Broken link: <a href="/this-page-does-not-exist" data-testid="broken-link">404 test link</a>
+      </p>
+      <p>
+        Disabled button that never enables: <button disabled data-testid="btn-always-disabled">Always disabled</button>
+      </p>
+    </div>
+  </section>
+
+  <!-- 09 IFRAME -->
+  <section class="section" id="frame">
+    <div class="section__head">
+      <span class="section__num">09</span>
+      <h2 class="section__title">Embedded iFrame</h2>
+    </div>
+    <div class="section__body">
+      <p class="section__note">For practicing frame-switching (<code>switchTo().frame()</code> / <code>frameLocator()</code>).</p>
+      <iframe class="demo-frame" data-testid="demo-iframe" srcdoc="<html><body style='font-family:sans-serif;padding:16px;'><p id='inner-text'>Text inside an iframe.</p><button id='inner-btn' onclick=&quot;document.getElementById('inner-text').textContent='Clicked inside the frame!'&quot;>Click me</button></body></html>"></iframe>
+    </div>
+  </section>
+
+</div>
+
+<!-- MODAL MARKUP -->
+<div class="modal-backdrop" id="modal-backdrop" data-testid="modal-backdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h3 id="modal-title">Delete this item?</h3>
+    <p>This action can't be undone. This is a demo — nothing is actually deleted.</p>
+    <div class="modal__actions">
+      <button class="danger" id="modal-confirm" data-testid="modal-confirm">Delete</button>
+      <button class="secondary" id="modal-cancel" data-testid="modal-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<footer>QA Playground — a static demo site for testing practice. No data leaves your browser.</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
