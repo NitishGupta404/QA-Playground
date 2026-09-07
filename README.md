@@ -1,24 +1,28 @@
-# QA Playground
+# QA Playground — Login Flow
 
-A small static site for practicing browser automation (Selenium, Playwright, Cypress) or manual exploratory testing. No backend, no build step — just HTML, CSS, and vanilla JS.
+A simple, focused static demo site for practicing browser automation (Selenium, Playwright, Cypress) or manual exploratory testing on authentication flows. No backend, no build step — credentials are validated in the browser.
 
-## Pages
+## Credentials
 
-- `index.html` — forms, checkboxes/radios, native alerts, a modal, a sortable table, drag-and-drop, a tooltip, intentionally broken elements, and an iframe.
-- `login.html` — a self-contained login flow. Valid login: `tester` / `pass123`.
-- `dynamic.html` — delayed content, a countdown-enabled button, dynamically added list items, and a value that's random on every load.
+- **Username:** `tester`
+- **Password:** `pass123`
 
-Every interactive element has a stable `id` and/or `data-testid` attribute to select against.
+## Interactive Elements & Selectors
+
+- **Form:** `#login-form`
+- **Username Input:** `#username` (`data-testid="input-username"`)
+- **Password Input:** `#password` (`data-testid="input-password"`)
+- **Login Button:** `#login-submit` (`data-testid="btn-login"`)
+- **Error Box:** `#login-error` (`data-testid="login-error"`)
+- **Secure Area Section:** `#secure-area` (`data-testid="secure-area"`)
+- **Welcome Display:** `#welcome-name` (`data-testid="welcome-name"`)
+- **Logout Button:** `#logout-btn` (`data-testid="btn-logout"`)
 
 ## Run locally
 
-No build step needed. Either open `index.html` directly in a browser, or serve it:
+No build step needed. Open `index.html` directly in a browser, or serve it:
 
 ```bash
-python3 -m http.server 8000
+python -m http.server 8000
 # then visit http://localhost:8000
 ```
-
-## Deploy
-
-This repo is set up to be served as-is by GitHub Pages — see the main chat for step-by-step setup instructions.
